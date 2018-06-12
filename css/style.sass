@@ -46,19 +46,19 @@ h1,h2,h3
     font-size: 16px
 
 ::placeholder
-    font-size: 20px
     color: $color-gray-light
 label
     font-size: 16px
     font-style: italic
-.logo
-    padding: 6px 20px
-    background-color: $color-gray-light
-    color: $color-white
-    font-size: 30px
-    font-weight: bold
-    letter-spacing: 2px
+input
     display: inline-block
+    outline: none
+    border: none
+    padding: 0
+    margin: 0
+    padding: 6px 12px
+    font-size: 16px
+    font-weight: 300
 // == $typography End ==
 
 
@@ -92,3 +92,54 @@ i
     padding: 3px 6px
 
 // == $icon End ==
+
+
+.container
+    max-width: 1140px
+    margin: 0 auto
+
+// == $header ==
+.header
+    border: solid 1px blue
+    height: 90px
+    background-color: $color-primary
+    .container
+        display: flex
+        height: 100%
+        align-items: center
+    .logo
+        width: 300px
+        font-size: 30px
+        font-weight: bold
+        letter-spacing: 1px
+        a
+            color: $color-gray-light
+    .search
+        width: 100%
+        vertical-align: middle
+        i
+            position: relative
+            bottom: -3px
+            font-size: 26px
+            color: $color-gray-light
+        input
+            width: 100%
+            max-width: 300px
+            background-color: transparent
+            border-bottom: 1px solid $color-gray-light
+            padding-left: 40px
+            margin-left: -30px
+            color: $color-gray-light
+            font-style: italic
+            caret-color: $color-white
+
+
+
+        // header.header
+        //     .container
+        //         .logo
+        //             a(href="/") HaveFun
+        //         .search
+        //             i.i.ion.ion-md-search
+        //             input(type="text" placeholder="請輸入景點名稱")
+// == $header End ==
