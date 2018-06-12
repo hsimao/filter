@@ -23,35 +23,41 @@ html(lang="zh-TW")
             aside.side
                 .side-location
                     h2.subtitle Location
-                    select(name="")
-                        option(value="Taiwan") Taiwan
+                    .select-style
+                        select(name="")
+                            option(value="Taiwan") Taiwan
 
                 .side-date
                     h2.subtitle Date
                     .input-group
-                        label(for="date-from")
+                        label(for="date-from") from
                         input(type="date" id="date-from")
                     .input-group
-                        label(for="date-top")
+                        label(for="date-top") to
                         input(type="date" id="date-top")
 
                 .side-categories
                     h2.subtitle Categories
                     .input-group
-                        input(type="checkbox" value="all" id="all")
-                        label(for="all") All
+                        .checkbox-style
+                            input.checkbox(type="checkbox" value="all" id="all")
+                            label(for="all") All
                     .input-group
-                        input(type="checkbox" value="entertainment" id="entertainment")
-                        label(for="entertainment") Entertainment
+                        .checkbox-style
+                            input(type="checkbox" value="entertainment" id="entertainment")
+                            label(for="entertainment") Entertainment
                     .input-group
-                        input(type="checkbox" value="food" id="food")
-                        label(for="food") Food
+                        .checkbox-style
+                            input(type="checkbox" value="food" id="food")
+                            label(for="food") Food
                     .input-group
-                        input(type="checkbox" value="learning" id="learning")
-                        label(for="learning") Learning
+                        .checkbox-style
+                            input(type="checkbox" value="learning" id="learning")
+                            label(for="learning") Learning
                     .input-group
-                        input(type="checkbox" value="outdoors" id="outdoors")
-                        label(for="outdoors") Outdoors
+                        .checkbox-style
+                            input(type="checkbox" value="outdoors" id="outdoors")
+                            label(for="outdoors") Outdoors
 
             //- 內容區塊
             article.content
