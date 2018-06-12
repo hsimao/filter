@@ -1,2 +1,84 @@
-.box
-    background-color: #fff
+// == $color ==
+$color-primary: #7828B4
+$color-primary-light: #9013FE
+$color-gray: #9B9B9B
+$color-gray-light: #D7D7D7
+$color-white: #fff
+$color-black: #000
+// == $color End ==
+
+
+// == $reset ==
+*
+    box-sizing: border-box
+body
+    margin: 0
+ul
+    list-style: none
+    margin: 0
+    padding: 0
+a
+    text-decoration: none
+h1,h3,h3,p
+    margin: 0
+    padding: 0
+// == $reset End ==
+
+
+// == $typography ==
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,700')
+$font: 'Roboto', '微軟正黑體', sans-serif
+body
+    font-size: 16px
+    font-family: $font
+    color: $color-gray
+
+h1,h2,h3
+    font-weight: 600
+
+.title
+    font-size: 36px
+    font-weight: bold
+.subtitle
+    font-size: 24px
+    font-weight: bold
+.p
+    font-size: 16px
+
+::placeholder
+    font-size: 20px
+    color: $color-gray-light
+.label
+    font-size: 16px
+    font-style: italic
+.logo
+    padding: 6px 20px
+    background-color: $color-gray-light
+    color: $color-white
+    font-size: 30px
+    font-weight: bold
+    letter-spacing: 2px
+    display: inline-block
+// == $typography End ==
+
+
+// == $icon == ionicons
+//  <link href="https://unpkg.com/ionicons@4.1.2/dist/css/ionicons.min.css" rel="stylesheet">
+// == map 地圖
+// i.ion.ion-md-locate
+// i.ion.ion-md-map
+
+// == date 日曆
+// i.ion.ion-md-calendar
+
+// == close 關閉
+// i.ion.ion-md-close-circle-outline
+
+// == search 搜尋
+// i.ion.ion-md-search
+
+i
+    color: $color-black
+    padding: 3px 6px
+
+// == $icon End ==
