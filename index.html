@@ -9,11 +9,100 @@
     <title>Filter 高雄旅遊景點 - 前端修煉賽事第二週</title>
   </head>
   <body>
-    <h1 class="title">hihihiOIFJWEOI</h1>
-    <p>你好嗎</p>
-    <input type="text" placeholder="hooo"/>
-    <div class="label">hihih安安</div>
-    <div class="logo">HaveFun</div><i class="ion ion-md-calendar"></i><i class="ion ion-md-close-circle-outline"></i><i class="ion ion-md-locate"></i><i class="ion ion-md-calendar"></i><i class="ion ion-md-map"></i><i class="ion ion-md-search"></i>
+    <header class="header">
+      <div class="container">
+        <div class="logo"><a href="/">HaveFun</a></div>
+        <div class="search"><i class="i ion ion-md-search"></i>
+          <input type="text" placeholder="請輸入景點名稱"/>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <aside class="side">
+        <div class="side-location">
+          <h2 class="subtitle">Location</h2>
+          <select name="">
+            <option value="Taiwan">Taiwan</option>
+          </select>
+        </div>
+        <div class="side-date">
+          <h2 class="subtitle">Date</h2>
+          <div class="input-group">
+            <label for="date-from"></label>
+            <input type="date" id="date-from"/>
+          </div>
+          <div class="input-group">
+            <label for="date-top"></label>
+            <input type="date" id="date-top"/>
+          </div>
+        </div>
+        <div class="side-categories">
+          <h2 class="subtitle">Categories</h2>
+          <div class="input-group">
+            <input type="checkbox" value="all" id="all"/>
+            <label for="all">All</label>
+          </div>
+          <div class="input-group">
+            <input type="checkbox" value="entertainment" id="entertainment"/>
+            <label for="entertainment">Entertainment</label>
+          </div>
+          <div class="input-group">
+            <input type="checkbox" value="food" id="food"/>
+            <label for="food">Food</label>
+          </div>
+          <div class="input-group">
+            <input type="checkbox" value="learning" id="learning"/>
+            <label for="learning">Learning</label>
+          </div>
+          <div class="input-group">
+            <input type="checkbox" value="outdoors" id="outdoors"/>
+            <label for="outdoors">Outdoors</label>
+          </div>
+        </div>
+      </aside>
+      <article class="content">
+        <div class="content-top">
+          <p class="p">Showing 15 resulits By ...</p>
+          <div class="btn-group">
+            <div class="btn btn-close">Kaohsiung</div>
+            <div class="btn btn-close">Entertainment</div>
+          </div>
+        </div>
+        <ul class="contents">
+          <li class="content-item"><img class="img" src="" alt="img"/>
+            <h2 class="subtitle">高雄願景館</h2>
+            <p class="content-des">高雄願景館的前身是日治時期興建的高雄市舊火車站，西式遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場…等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。</p>
+            <div class="content-ticket">
+              <h3>門票說明</h3>
+              <div class="content-tag">免費參觀</div>
+            </div>
+            <div class="content-addr"><i class="ion ion-md-locate"></i>
+              <p>高雄市(Zone)</p>
+              <p>高雄市高雄市岡山區本工一路25號(Add)</p>
+            </div>
+            <div class="content-open"><i class="ion ion-md-calendar"></i>
+              <h3>開放時間</h3>
+              <p>每日08:00-17:00</p>
+            </div>
+            <div class="content-webside"><a href="/"><i class="ion ion-ios-link"></i></a></div>
+          </li>
+          <li class="content-item"></li>
+          <li class="content-item"></li>
+        </ul>
+        <div class="content-paging">
+          <div class="page-prev"><i class="ion ion-md-arrow-dropleft"></i></div>
+          <div class="page-item" date-item="1">1</div>
+          <div class="page-item" date-item="2">2</div>
+          <div class="page-item" date-item="3">3</div>
+          <div class="page-item" date-item="4">4</div>
+          <div class="page-item" date-item="5">5</div>
+          <div class="page-next"><i class="ion ion-md-arrow-dropright"></i></div>
+        </div>
+      </article>
+    </div>
+    <footer class="footer">
+      <p>Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊網API應用 | Designed by HSI-MAO CHEN</p><a class="footer-link" href="https://github.com/hsimao/" target="_blank"><i class="icon ion-logo-github"></i></a><a class="footer-link" href="https://codepen.io/hsimao" target="_blank"><i class="icon ion-logo-codepen"></i></a>
+    </footer>
     <script src="./js/js.js"></script>
   </body>
 </html>
