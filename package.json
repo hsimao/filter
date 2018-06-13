@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all --parallel liveServer watch:pug watch:sass",
+    "start": "npm-run-all --parallel liveServer watch:pug watch:pug2 watch:sass",
     "watch:pug": "pug index.pug index.html -w -P",
+    "watch:pug2": "pug content.pug content.html -w -P",
     "compile:pug": "pug index.pug index.html",
+    "compile:pug2": "pug content.pug content.html",
     "watch:sass": "node-sass css/style.sass css/style.css -w",
     "liveServer": "live-server",
     "compile:sass": "node-sass css/style.sass css/style.comp.css",

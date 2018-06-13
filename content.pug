@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+html(lang="zh-TW")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(href="https://unpkg.com/ionicons@4.1.2/dist/css/ionicons.min.css" rel="stylesheet")
+        link(rel="stylesheet", href="./css/style.css")
+        title Filter 高雄旅遊景點 - 前端修煉賽事第二週
+    body
+        //- header
+        header.header
+            .container
+                .logo
+                    a(href="/") HaveFun
+                .search
+                    i.i.ion.ion-md-search
+                    input(type="text" placeholder="請輸入景點名稱")
+
+
+        .container
+            //- 搜尋工具列
+            aside.side
+                .side-location
+                    h2.subtitle Location
+                    .select-style
+                        select(name="")
+                            option(value="Taiwan") Taiwan
+
+                .side-date
+                    h2.subtitle Date
+                    .input-group
+                        label(for="date-from") from
+                        input(type="date" id="date-from")
+                    .input-group
+                        label(for="date-top") to
+                        input(type="date" id="date-top")
+
+                .side-categories
+                    h2.subtitle Categories
+                    .input-group
+                        .checkbox-style
+                            input.checkbox(type="checkbox" value="all" id="all")
+                            label(for="all") All
+                    .input-group
+                        .checkbox-style
+                            input(type="checkbox" value="entertainment" id="entertainment")
+                            label(for="entertainment") Entertainment
+                    .input-group
+                        .checkbox-style
+                            input(type="checkbox" value="food" id="food")
+                            label(for="food") Food
+                    .input-group
+                        .checkbox-style
+                            input(type="checkbox" value="learning" id="learning")
+                            label(for="learning") Learning
+                    .input-group
+                        .checkbox-style
+                            input(type="checkbox" value="outdoors" id="outdoors")
+                            label(for="outdoors") Outdoors
+
+            //- 內容區塊
+            article.content
+                //- Breadcrumb
+                .breadcrumb
+                    .breadcrumb-item.breadcrumb-item-primary 首頁
+                    .breadcrumb-item 高雄願景館
+
+                //- 景點詳細內容區塊
+                ul.content-only
+                    li.content-item
+                        .content-img.imgbox
+                            .imgbox-inner
+                                img.img(src="https://khh.travel/FileArtPic.ashx?id=1918&w=1280&h=960", alt="img")
+                        .content-info
+                            h2.title 高雄願景館
+                            .content-ticket
+                                h3 門票說明
+                                .content-tag 免費參觀
+                            .content-addr
+                                i.ion.ion-md-locate
+                                p 高雄市高雄市岡山區本工一路25號(Add)
+                            .content-open
+                                i.ion.ion-md-calendar
+                                p 每日08:00-17:00
+                            .content-webside
+                                a(href="/")
+                                    i.ion.ion-ios-link
+                            p.content-des 高雄願景館的前身是日治時期興建的高雄市舊火車站，西式遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。
+
+
+
+        //- footer
+        footer.footer
+            p.footer-text Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊網API應用 | Front End Development by HSI-MAO CHEN
+            a.footer-link(href="https://github.com/hsimao/" target="_blank")
+                i.icon.ion-logo-github
+            a.footer-link(href="https://codepen.io/hsimao" target="_blank")
+                i.icon.ion-logo-codepen
+
+        script(src="./js/js.js")

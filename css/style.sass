@@ -36,6 +36,18 @@ $color-black: #2f3542
     &:after
         clear: both
 
+@mixin rwd($breakpoint)
+	@if $breakpoint == xs
+		@media (max-width: 375px) { @content }
+	@if $breakpoint == sm
+		@media (max-width: 568px) { @content }
+	@if $breakpoint == pad
+		@media (max-width: 768px) { @content }
+	@if $breakpoint == md
+		@media (max-width: 1024px) { @content }
+	@if $breakpoint == lg
+		@media (max-width: 1200px) { @content }
+
 
 // == $mixin End ==
 
@@ -81,6 +93,8 @@ h1,h2,h3
 .title
     font-size: 36px
     font-weight: bold
+    color: $color-primary-light
+    margin-bottom: 15px
 .subtitle
     font-size: 24px
     font-weight: bold
@@ -92,6 +106,8 @@ h1,h2,h3
 
 ::placeholder
     color: rgba($color-white,0.5)
+    +rwd(sm)
+        color: rgba($color-black,0.5)
 label
     font-size: 16px
     color: $color-black
@@ -143,17 +159,27 @@ i
     max-width: 1140px
     margin: 0 auto
     +clearfix
+    background-color: $color-gray-light3
 
 // == $header ==
 .header
     height: 90px
     background-color: $color-primary
+    +rwd(sm)
+        height: auto
+        background-color: transparent
     .container
         display: flex
         height: 100%
         align-items: center
         padding: 0 38px
+        background-color: transparent
+        +rwd(sm)
+            flex-flow: column wrap
+            justify-content: center
+            padding: 0
     .logo
+        flex: 0 0 auto
         width: 300px
         font-size: 36px
         font-weight: bold
@@ -161,17 +187,33 @@ i
         font-family: $font-title
         a
             color: $color-white
+        +rwd(sm)
+            width: 100%
+            height: 70px
+            line-height: 70px
+            text-align: center
+            background-color: $color-primary
     .search
         width: 100%
         vertical-align: middle
+        +rwd(sm)
+            background-color: $color-gray-light1
+            height: 55px
+            line-height: 55px
+            text-align: center
+            padding: 0 40px
+            box-shadow: 0 4px 6px 0 rgba(black,0.08)
+            z-index: 10
         i
             position: relative
             bottom: -3px
             font-size: 28px
             color: $color-white
+            +rwd(sm)
+                color: $color-black
         input
             width: 100%
-            max-width: 400px
+            max-width: 388px
             background-color: transparent
             border-bottom: 1px solid $color-white
             padding-left: 40px
@@ -182,6 +224,14 @@ i
             caret-color: $color-white
             transition: all .3s
             position: relative
+            +rwd(pad)
+                max-width: 350px
+                margin-left: -40px
+            +rwd(sm)
+                max-width: 100%
+                color: rgba($color-black, 0.5)
+                caret-color: $color-black
+                border-bottom: 1px solid $color-black
 // == $header End ==
 
 
@@ -190,22 +240,51 @@ i
     float: left
     width: 300px
     display: inline-block
+    +rwd(pad)
+        width: 270px
+    +rwd(sm)
+        width: 100%
 .content
     float: left
     width: calc(100% - 300px)
+    +rwd(pad)
+        width: calc(100% - 270px)
+    +rwd(sm)
+        width: 100%
 // == $layout End ==
 
 
 // == $side 側邊欄工具列 ==
-
 .side
-    // padding: 0px 38px
     background-color: $color-gray-light2
     &-location,&-date,&-categories
-        // border: solid 1px red
         padding: 26px 38px
+        +rwd(pad)
+            padding: 20px 25px
+        +rwd(sm)
+            height: 64px
+            padding: 20px 40px
+            overflow: hidden
+            background-color: $color-gray-light1
+            position: relative
+            &:before,&:after
+                content: '\2014'
+                position: absolute
+                right: 40px
+                top: 0px
+                height: 64px
+                line-height: 64px
+                font-size: 30px
+                transition: all .3s
+            &:hover
+                background-color: $color-gray-light2
+                height: auto
+                &:after
+                    transform: rotate(-90deg)
     &-location
         border-bottom: solid 1px $color-gray-light1
+        +rwd(sm)
+            border-bottom: solid 1px $color-gray
         .select-style
             position: relative
             &:before
@@ -224,6 +303,8 @@ i
             font-size: 16px
             border: none
             background-color: $color-white
+            +rwd(sm)
+                width: 100%
     &-date
         border-bottom: solid 1px $color-gray-light1
         .input-group
@@ -237,6 +318,12 @@ i
                 margin-right: 13px
             input[type='date']
                 width: 170px
+            +rwd(sm)
+                justify-content: flex-start
+                label
+                    width: 40px
+                input[type='date']
+                    width: 100%
     &-categories
         .input-group
             width: 100%
@@ -333,6 +420,8 @@ i
     margin-top: 8px
     .btn
         margin-right: 8px
+    .btn + .btn
+        margin-top: 8px
 // == $btn End ==
 
 
@@ -346,17 +435,25 @@ i
     width: 100%
     padding-top: 100%
     height: 0
+    +rwd(md)
+        padding-top: 200px
 .img
     +abCenter
-    // max-width: 100%
     max-height: 100%
+    +rwd(md)
+        max-height: initial
+        max-width: 100%
 // == $等比例 RWD img End ==
 
 
 // == $content ==
 .content
-    background-color: $color-gray-light3
     padding: 26px 40px
+    +clearfix
+    +rwd(pad)
+        padding: 20px 25px
+    +rwd(sm)
+        padding: 26px 40px
 
     // 頂部提示文字、標籤btn區
     &-top
@@ -370,7 +467,6 @@ i
 
 
     // 景點內容區
-    .contents
     &-item + &-item
         margin-top: 24px
     &-item
@@ -379,9 +475,22 @@ i
         height: 220px
         overflow: hidden
         background-color: $color-white
+        box-shadow: 0 2px 6px 0 rgba(black,0.2)
+        transition: all .3s
+        +rwd(md)
+            flex-direction: column
+            height: 420px
+        +rwd(pad)
+            height: 450px
+        &:hover
+            box-shadow: 0 4px 8px 0 rgba(black,0.2)
+            transform: translate(-2px, -2px)
     &-img
         flex: 0 0 auto
         width: 220px
+        +rwd(md)
+            width: 100%
+
     &-info
         flex: 1 1 auto
         padding: 24px 20px
@@ -454,13 +563,125 @@ i
 
     &-addr
         width: 65%
+        +rwd(pad)
+            width: 100%
+            margin-bottom: 5px
     &-open
         width: 30%
+        +rwd(pad)
+            width: 80%
     &-webside
         width: 5%
+        +rwd(pad)
+            width: 20%
 
 
     // 分頁區
     &-paging
+        float: right
+        display: flex
+        justify-content: flex-end
+        margin-top: 24px
+        max-width: 280px
+        box-shadow: 0 2px 6px 0 rgba(black,0.2)
+        +rwd(sm)
+            float: none
+            margin: 24px auto 0 auto
+        .page-item
+            +flexCenter
+            width: 40px
+            height: 40px
+            background-color: $color-white
+            border: solid 1px $color-gray-light3
+            color: $color-primary-light
+            i
+                color: $color-primary-light
+        .page-item.active
+            background-color: $color-primary-light
+            color: $color-white
 
+
+// 內頁部分
+.content-only
+    padding: 24px 0
+
+    .content-item
+        flex-direction: column
+        height: auto
+        &:hover
+            transform: none
+    .content-img
+        width: 100%
+    .imgbox-inner
+        padding-top: 55%
+    .img
+        max-width: 100%
+        max-height: initial
+
+    .content-des
+        height: auto
+        line-height: 1.5
+        padding-top: 16px
+        width: 100%
+        color: rgba($color-black,0.8)
+        &:before
+            display: none
+    .content-addr,.content-open,.content-webside
+        width: auto
+        padding-right: 20px
+        &:hover
+            background-color: transparent
+            border: none
+            i
+                margin-left: -7px
 // == $content End ==
+
+
+// == $footer ==
+.footer
+    +flexCenter
+    padding: 12px 20px
+    background-color: $color-primary
+    &-text
+        color: $color-white
+        font-weight: 300
+        font-size: 14px
+        footer-link
+        letter-spacing: 1px
+        margin-right: 10px
+    &-link
+        color: $color-white
+        margin-right: 10px
+        i
+            margin-top: 3px
+            color: $color-white
+            font-size: 22px
+// == $footer End ==
+
+
+// == $breadcrumb ==
+.breadcrumb
+    background-color: $color-gray-light2
+    display: flex
+    padding: 0 16px
+    height: 48px
+    line-height: 48px
+    &-item
+        margin-right: 30px
+        position: relative
+        &-primary
+            color: $color-primary-light
+    &-item + &-item
+        &:before
+            content: '/'
+            position: absolute
+            top: 0
+            left: -20px
+            width: 10px
+            height: 100%
+            text-align: center
+
+
+
+
+// == $ End ==
