@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Raleway:800");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,700");
 * {
   box-sizing: border-box; }
@@ -89,7 +90,8 @@ i {
     width: 300px;
     font-size: 36px;
     font-weight: bold;
-    letter-spacing: 1px; }
+    letter-spacing: 1px;
+    font-family: "Raleway", sans-serif; }
     .header .logo a {
       color: #fff; }
   .header .search {
@@ -207,7 +209,168 @@ i {
       margin-left: 22px;
       line-height: 20px; }
 
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: solid 1px #9013FE;
+  border-radius: 200px;
+  font-style: italic;
+  font-weight: bold;
+  color: #9013FE;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: all .3s; }
+  .btn:hover {
+    background-color: #9013FE;
+    color: #fff; }
+    .btn:hover:after {
+      border: solid 1px #fff !important; }
+
+.btn.btn-close {
+  padding-right: 40px;
+  position: relative; }
+  .btn.btn-close:before, .btn.btn-close:after {
+    content: "";
+    position: absolute;
+    transform: translateY(-50%); }
+  .btn.btn-close:before {
+    content: "\00d7";
+    top: 48%;
+    right: 17px;
+    font-family: "Ionicons";
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 300; }
+  .btn.btn-close:after {
+    top: 50%;
+    height: 14px;
+    width: 14px;
+    right: 15px;
+    border: solid 1px #9013FE;
+    border-radius: 50%;
+    z-index: 10; }
+
+.btn-group {
+  margin-top: 8px; }
+  .btn-group .btn {
+    margin-right: 8px; }
+
+.imgbox {
+  width: auto;
+  display: inline-block;
+  overflow: hidden; }
+
+.imgbox-inner {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  height: 0; }
+
+.img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 100%; }
+
 .content {
-  background-color: #f2f2f2; }
-  .content img {
-    width: 400px; }
+  background-color: #f2f2f2;
+  padding: 26px 40px; }
+  .content-top {
+    margin-bottom: 24px; }
+    .content-top .p {
+      font-size: 24px;
+      color: #2f3542; }
+      .content-top .p span {
+        font-weight: bold;
+        color: #7828B4; }
+  .content-item + .content-item {
+    margin-top: 24px; }
+  .content-item {
+    display: flex;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background-color: #fff; }
+  .content-img {
+    flex: 0 0 auto;
+    width: 220px; }
+  .content-info {
+    flex: 1 1 auto;
+    padding: 24px 20px; }
+    .content-info:before, .content-info:after {
+      content: '';
+      display: table; }
+    .content-info:after {
+      clear: both; }
+    .content-info .subtitle {
+      color: #9013FE;
+      font-weight: 400;
+      letter-spacing: 1px; }
+  .content-des {
+    position: relative;
+    height: 50px;
+    line-height: 24px;
+    color: #2f3542;
+    overflow: hidden;
+    transition: all .3s; }
+    .content-des:before {
+      content: '...';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 35px;
+      height: 24px;
+      padding-left: 5px;
+      color: #2f3542;
+      background-color: #fff;
+      cursor: pointer; }
+  .content-des:hover, .content-des.active {
+    height: auto; }
+    .content-des:hover:before, .content-des.active:before {
+      display: none; }
+  .content-ticket {
+    display: flex;
+    padding: 16px 0; }
+    .content-ticket h3 {
+      font-size: 16px;
+      color: #2f3542;
+      letter-spacing: 1px; }
+  .content-tag {
+    margin-left: 20px;
+    padding: 3px 16px;
+    line-height: 19px;
+    border-radius: 100px;
+    background-color: #D7D7D7;
+    color: #fff;
+    font-weight: 300; }
+  .content-addr, .content-open, .content-webside {
+    display: flex;
+    float: left;
+    color: #9B9B9B;
+    font-weight: 300;
+    padding-right: 10px; }
+    .content-addr i, .content-open i, .content-webside i {
+      margin-left: -7px;
+      width: 30px;
+      text-align: center; }
+    .content-addr p, .content-open p, .content-webside p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
+    .content-addr:hover, .content-open:hover, .content-webside:hover {
+      background-color: #fff;
+      border: solid 1px #9B9B9B; }
+      .content-addr:hover i, .content-open:hover i, .content-webside:hover i {
+        margin-left: 0; }
+      .content-addr:hover p, .content-open:hover p, .content-webside:hover p {
+        overflow: initial;
+        white-space: initial; }
+  .content-addr {
+    width: 65%; }
+  .content-open {
+    width: 30%; }
+  .content-webside {
+    width: 5%; }

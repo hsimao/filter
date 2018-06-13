@@ -36,6 +36,7 @@ $color-black: #2f3542
     &:after
         clear: both
 
+
 // == $mixin End ==
 
 
@@ -63,8 +64,11 @@ select
 
 
 // == $typography ==
+@import url('https://fonts.googleapis.com/css?family=Raleway:800');
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,700')
 $font: 'Roboto', '微軟正黑體', sans-serif
+$font-title: 'Raleway', sans-serif
+
 body
     font-size: 16px
     font-family: $font
@@ -154,6 +158,7 @@ i
         font-size: 36px
         font-weight: bold
         letter-spacing: 1px
+        font-family: $font-title
         a
             color: $color-white
     .search
@@ -280,9 +285,182 @@ i
 // == $side 側邊欄工具列 End ==
 
 
+// == $btn ==
+.btn
+    display: inline-block
+    padding: 10px 20px
+    border: solid 1px $color-primary-light
+    border-radius: 200px
+    font-style: italic
+    font-weight: bold
+    color: $color-primary-light
+    letter-spacing: 0.5px
+    cursor: pointer
+    user-select: none
+    -webkit-user-drag: none
+    transition: all .3s
+    &:hover
+        background-color: $color-primary-light
+        color: $color-white
+        &:after
+            border: solid 1px $color-white !important
+
+.btn.btn-close
+    padding-right: 40px
+    position: relative
+    &:before,&:after
+        content: ""
+        position: absolute
+        transform: translateY(-50%)
+    &:before
+        content: "\00d7"
+        top: 48%
+        right: 17px
+        font-family: "Ionicons"
+        font-style: normal
+        font-size: 16px
+        font-weight: 300
+    &:after
+        top: 50%
+        height: 14px
+        width: 14px
+        right: 15px
+        border: solid 1px $color-primary-light
+        border-radius: 50%
+        z-index: 10
+
+.btn-group
+    margin-top: 8px
+    .btn
+        margin-right: 8px
+// == $btn End ==
+
+
+// == $等比例 RWD img ==
+.imgbox
+    width: auto
+    display: inline-block
+    overflow: hidden
+.imgbox-inner
+    position: relative
+    width: 100%
+    padding-top: 100%
+    height: 0
+.img
+    +abCenter
+    // max-width: 100%
+    max-height: 100%
+// == $等比例 RWD img End ==
+
+
 // == $content ==
 .content
     background-color: $color-gray-light3
-    img
-        width: 400px
+    padding: 26px 40px
+
+    // 頂部提示文字、標籤btn區
+    &-top
+        margin-bottom: 24px
+        .p
+            font-size: 24px
+            color: $color-black
+            span
+                font-weight: bold
+                color: $color-primary
+
+
+    // 景點內容區
+    .contents
+    &-item + &-item
+        margin-top: 24px
+    &-item
+        display: flex
+        width: 100%
+        height: 220px
+        overflow: hidden
+        background-color: $color-white
+    &-img
+        flex: 0 0 auto
+        width: 220px
+    &-info
+        flex: 1 1 auto
+        padding: 24px 20px
+        +clearfix
+        .subtitle
+            color: $color-primary-light
+            font-weight: 400
+            letter-spacing: 1px
+    &-des
+        position: relative
+        height: 50px
+        line-height: 24px
+        color: $color-black
+        overflow: hidden
+        transition: all .3s
+        &:before
+            content: '...'
+            position: absolute
+            right: 0
+            bottom: 0
+            width: 35px
+            height: 24px
+            padding-left: 5px
+            color: $color-black
+            background-color: $color-white
+            cursor: pointer
+    &-des:hover,&-des.active
+        height: auto
+        &:before
+            display: none
+
+    &-ticket
+        display: flex
+        padding: 16px 0
+        h3
+            font-size: 16px
+            color: $color-black
+            letter-spacing: 1px
+    &-tag
+        margin-left: 20px
+        padding: 3px 16px
+        line-height: 19px
+        border-radius: 100px
+        background-color: $color-gray-light1
+        color: $color-white
+        font-weight: 300
+
+    &-addr,&-open,&-webside
+        display: flex
+        float: left
+        color: $color-gray
+        font-weight: 300
+        padding-right: 10px
+        i
+            margin-left: -7px
+            width: 30px
+            text-align: center
+        p
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+        &:hover
+            background-color: $color-white
+            border: solid 1px $color-gray
+            i
+                margin-left: 0
+            p
+                overflow: initial
+                white-space: initial
+
+    &-addr
+        width: 65%
+    &-open
+        width: 30%
+    &-webside
+        width: 5%
+
+
+    // 分頁區
+    &-paging
+
 // == $content End ==
