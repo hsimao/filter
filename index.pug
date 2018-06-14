@@ -9,145 +9,86 @@ html(lang="zh-TW")
         link(rel="stylesheet", href="./css/style.css")
         title Filter 高雄旅遊景點 - 前端修煉賽事第二週
     body
-        //- header
-        header.header
+        #app
+            //- header
+            header.header
+                .container
+                    .logo
+                        a(href="./") HaveFun
+                    .search
+                        i.i.ion.ion-md-search
+                        input(type="text" placeholder="請輸入景點名稱" v-model="filterText" @keyup.enter="filterKeyWord")
+
             .container
-                .logo
-                    a(href="./") HaveFun
-                .search
-                    i.i.ion.ion-md-search
-                    input(type="text" placeholder="請輸入景點名稱")
+                //- 搜尋工具列
+                aside.side
+                    .side-location
+                        h2.subtitle 地區
+                        .select-style
+                            select(name="" v-model="zoneText" @change="filterMix")
+                                option(value="") 選擇地區
+                                option(:value="item" v-for="item in zone") {{item}}
 
+                    .side-categories
+                        h2.subtitle 進階篩選
+                        .input-group
+                            .checkbox-style(:class="{'active' : free}")
+                                input(v-model="free" type="checkbox" value="entertainment" id="free" @change="filterMix")
+                                label(for="free") 免費參觀
+                        .input-group
+                            .checkbox-style(:class="{'active' : open}")
+                                input(v-model="open" type="checkbox" value="food" id="open" @change="filterMix")
+                                label(for="open") 全天候開放
 
-        .container
-            //- 搜尋工具列
-            aside.side
-                .side-location
-                    h2.subtitle Location
-                    .select-style
-                        select(name="")
-                            option(value="Taiwan") Taiwan
+                //- 內容區塊
+                article.content
+                    .content-top
+                        p.p Showing <span>{{filter.length}}</span> resulits By ...
+                        .btn-group
+                            .btn.btn-close(v-if="zoneText" @click="zoneText = ''") {{zoneText}}
+                            .btn.btn-close(v-if="free" @click="free = false") 免費參觀
+                            .btn.btn-close(v-if="open" @click="open = false") 全天候開放
+                    ul.contents
+                        li.content-item(v-for="item in filter")
+                            a(href="./content.html")
+                                .content-img.imgbox
+                                    .imgbox-inner
+                                        img.img(:src="item.Picture1", alt="img")
+                                .content-info
+                                    h2.subtitle {{item.Name}}
+                                    p.content-des {{item.Description}}
+                                    .content-ticket
+                                        h3 門票說明
+                                        .content-tag(v-if="item.Ticketinfo") {{item.Ticketinfo}}
+                                        .content-tag(v-else) 無
+                                    .content-addr
+                                        i.ion.ion-md-locate
+                                        p {{item.Add}}
+                                    .content-open
+                                        i.ion.ion-md-calendar
+                                        p {{item.Opentime}}
+                                    .content-webside
+                                        a(v-if="item.Website" :href="item.Website" target="_blank")
+                                            i.ion.ion-ios-link
 
-                .side-date
-                    h2.subtitle Date
-                    .input-group
-                        label(for="date-from") from
-                        input(type="date" id="date-from")
-                    .input-group
-                        label(for="date-top") to
-                        input(type="date" id="date-top")
+                    .content-paging
+                        .page-item.page-prev
+                            i.ion.ion-md-arrow-dropleft
+                        .page-item.active(data-item="1") 1
+                        .page-item(data-item="2") 2
+                        .page-item(data-item="3") 3
+                        .page-item(data-item="4") 4
+                        .page-item(data-item="5") 5
+                        .page-item.page-next
+                            i.ion.ion-md-arrow-dropright
 
-                .side-categories
-                    h2.subtitle Categories
-                    .input-group
-                        .checkbox-style
-                            input.checkbox(type="checkbox" value="all" id="all")
-                            label(for="all") All
-                    .input-group
-                        .checkbox-style
-                            input(type="checkbox" value="entertainment" id="entertainment")
-                            label(for="entertainment") Entertainment
-                    .input-group
-                        .checkbox-style
-                            input(type="checkbox" value="food" id="food")
-                            label(for="food") Food
-                    .input-group
-                        .checkbox-style
-                            input(type="checkbox" value="learning" id="learning")
-                            label(for="learning") Learning
-                    .input-group
-                        .checkbox-style
-                            input(type="checkbox" value="outdoors" id="outdoors")
-                            label(for="outdoors") Outdoors
-
-            //- 內容區塊
-            article.content
-                .content-top
-                    p.p Showing <span>15</span> resulits By ...
-                    .btn-group
-                        .btn.btn-close Kaohsiung
-                        .btn.btn-close Entertainment
-                ul.contents
-                    li.content-item
-                        a(href="./content.html")
-                            .content-img.imgbox
-                                .imgbox-inner
-                                    img.img(src="https://images.pexels.com/photos/257360/pexels-photo-257360.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260", alt="img")
-                            .content-info
-                                h2.subtitle 高雄願景館
-                                p.content-des 高雄願景館的前身是日治時期興建的高雄市舊火車站，西式遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。
-                                .content-ticket
-                                    h3 門票說明
-                                    .content-tag 免費參觀
-                                .content-addr
-                                    i.ion.ion-md-locate
-                                    p 高雄市高雄市岡山區本工一路25號(Add)
-                                .content-open
-                                    i.ion.ion-md-calendar
-                                    p 每日08:00-17:00
-                                .content-webside
-                                    a(href="/")
-                                        i.ion.ion-ios-link
-
-                    li.content-item
-                        a(href="./content.html")
-                            .content-img.imgbox
-                                .imgbox-inner
-                                    img.img(src="https://images.pexels.com/photos/167446/pexels-photo-167446.jpeg?auto=compress&cs=tinysrgb&h=650&w=940", alt="img")
-                            .content-info
-                                h2.subtitle 高雄願景館
-                                p.content-des 高雄願景館的前身是日治時期興建的高雄市舊火車站，西式遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。
-                                .content-ticket
-                                    h3 門票說明
-                                    .content-tag 免費參觀
-                                .content-addr
-                                    i.ion.ion-md-locate
-                                    p 高雄市高雄市岡山區本工一路25號(Add)
-                                .content-open
-                                    i.ion.ion-md-calendar
-                                    p 每日08:00-17:00
-                                .content-webside
-                                    a(href="/")
-                                        i.ion.ion-ios-link
-
-                    li.content-item
-                        a(href="./content.html")
-                            .content-img.imgbox
-                                .imgbox-inner
-                                    img.img(src="https://images.pexels.com/photos/33545/sunrise-phu-quoc-island-ocean.jpg?auto=compress&cs=tinysrgb&h=350", alt="img")
-                            .content-info
-                                h2.subtitle 高雄願景館
-                                p.content-des 高雄願景館的前身是日治時期興建的高雄市舊火車站，西式遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。
-                                .content-ticket
-                                    h3 門票說明
-                                    .content-tag 免費參觀
-                                .content-addr
-                                    i.ion.ion-md-locate
-                                    p 高雄市高雄市岡山區本工一路25號(Add)
-                                .content-open
-                                    i.ion.ion-md-calendar
-                                    p 每日08:00-17:00
-                                .content-webside
-                                    a(href="/")
-                                        i.ion.ion-ios-link
-
-                .content-paging
-                    .page-item.page-prev
-                        i.ion.ion-md-arrow-dropleft
-                    .page-item.active(data-item="1") 1
-                    .page-item(data-item="2") 2
-                    .page-item(data-item="3") 3
-                    .page-item(data-item="4") 4
-                    .page-item(data-item="5") 5
-                    .page-item.page-next
-                        i.ion.ion-md-arrow-dropright
-
-        //- footer
-        footer.footer
-            p.footer-text Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊網API應用 | Front End Development by HSI-MAO CHEN
-            a.footer-link(href="https://github.com/hsimao/" target="_blank")
-                i.icon.ion-logo-github
-            a.footer-link(href="https://codepen.io/hsimao" target="_blank")
-                i.icon.ion-logo-codepen
-
+            //- footer
+            footer.footer
+                p.footer-text Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊網API應用 | Front End Development by HSI-MAO CHEN
+                a.footer-link(href="https://github.com/hsimao/" target="_blank")
+                    i.icon.ion-logo-github
+                a.footer-link(href="https://codepen.io/hsimao" target="_blank")
+                    i.icon.ion-logo-codepen
+        script(src="https://unpkg.com/axios/dist/axios.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js")
         script(src="./js/js.js")

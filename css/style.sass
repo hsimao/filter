@@ -220,7 +220,7 @@ i
             border-bottom: 1px solid $color-white
             padding-left: 40px
             margin-left: -30px
-            color: ragb($color-white,0.5)
+            color: rgba($color-white,0.5)
             font-size: 20px
             font-style: italic
             caret-color: $color-white
@@ -387,34 +387,38 @@ i
             margin-bottom: 8px
             .checkbox-style
                 position: relative
-                width: 16px
-                height: 16px
+                width: 17px
+                height: 17px
                 background-color: $color-white
-                z-index: 2
+                transition: all .6s
+                cursor: pointer
                 &:before,&:after
                     content: ''
                     +abCenter
-                    z-index: -100
-                &:before
+                    pointer-events: none
+                    transition: all .6s
+                &:after
                     background-color: $color-primary
                     border-radius: 50%
                     width: 0%
                     height: 0%
-                    transition: all .6s
-                &:after
+                &:before
                     content: "\f2bc"
                     font-family: "Ionicons"
                     opacity: 0
                     color: $color-white
                 &:hover
-                    background-color: $color-primary
-                    &:before
-                        width: 300%
-                        height: 300%
-                        opacity: 0
-                &:hover:active
-                    &:after
-                        opacity: 1
+                    background-color: rgba($color-primary,0.7)
+
+            .checkbox-style.active
+                background-color: $color-primary
+                &:after
+                    width: 300%
+                    height: 300%
+                    opacity: 0
+                &:before
+                    opacity: 1
+
             input[type='checkbox']
                 position: absolute
                 top: 0
@@ -423,6 +427,8 @@ i
             label
                 margin-left: 22px
                 line-height: 20px
+                white-space: nowrap
+                cursor: pointer
 // == $side 側邊欄工具列 End ==
 
 
@@ -433,7 +439,6 @@ i
     border: solid 1px $color-primary-light
     border-radius: 200px
     font-style: italic
-    font-weight: bold
     color: $color-primary-light
     letter-spacing: 0.5px
     cursor: pointer
@@ -449,6 +454,7 @@ i
 .btn.btn-close
     padding-right: 40px
     position: relative
+    font-weight: normal
     &:before,&:after
         content: ""
         position: absolute

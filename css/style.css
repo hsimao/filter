@@ -147,7 +147,7 @@ i {
       border-bottom: 1px solid #fff;
       padding-left: 40px;
       margin-left: -30px;
-      color: ragb(#fff, 0.5);
+      color: rgba(255, 255, 255, 0.5);
       font-size: 20px;
       font-style: italic;
       caret-color: #fff;
@@ -317,35 +317,38 @@ i {
     margin-bottom: 8px; }
     .side-categories .input-group .checkbox-style {
       position: relative;
-      width: 16px;
-      height: 16px;
+      width: 17px;
+      height: 17px;
       background-color: #fff;
-      z-index: 2; }
+      transition: all .6s;
+      cursor: pointer; }
       .side-categories .input-group .checkbox-style:before, .side-categories .input-group .checkbox-style:after {
         content: '';
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: -100; }
-      .side-categories .input-group .checkbox-style:before {
+        pointer-events: none;
+        transition: all .6s; }
+      .side-categories .input-group .checkbox-style:after {
         background-color: #7828B4;
         border-radius: 50%;
         width: 0%;
-        height: 0%;
-        transition: all .6s; }
-      .side-categories .input-group .checkbox-style:after {
+        height: 0%; }
+      .side-categories .input-group .checkbox-style:before {
         content: "\f2bc";
         font-family: "Ionicons";
         opacity: 0;
         color: #fff; }
       .side-categories .input-group .checkbox-style:hover {
-        background-color: #7828B4; }
-        .side-categories .input-group .checkbox-style:hover:before {
-          width: 300%;
-          height: 300%;
-          opacity: 0; }
-      .side-categories .input-group .checkbox-style:hover:active:after {
+        background-color: rgba(120, 40, 180, 0.7); }
+    .side-categories .input-group .checkbox-style.active {
+      background-color: #7828B4; }
+      .side-categories .input-group .checkbox-style.active:after {
+        width: 300%;
+        height: 300%;
+        opacity: 0; }
+      .side-categories .input-group .checkbox-style.active:before {
         opacity: 1; }
     .side-categories .input-group input[type='checkbox'] {
       position: absolute;
@@ -354,7 +357,9 @@ i {
       opacity: 0; }
     .side-categories .input-group label {
       margin-left: 22px;
-      line-height: 20px; }
+      line-height: 20px;
+      white-space: nowrap;
+      cursor: pointer; }
 
 .btn {
   display: inline-block;
@@ -362,7 +367,6 @@ i {
   border: solid 1px #9013FE;
   border-radius: 200px;
   font-style: italic;
-  font-weight: bold;
   color: #9013FE;
   letter-spacing: 0.5px;
   cursor: pointer;
@@ -377,7 +381,8 @@ i {
 
 .btn.btn-close {
   padding-right: 40px;
-  position: relative; }
+  position: relative;
+  font-weight: normal; }
   .btn.btn-close:before, .btn.btn-close:after {
     content: "";
     position: absolute;

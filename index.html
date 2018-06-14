@@ -10,150 +10,90 @@
     <title>Filter 高雄旅遊景點 - 前端修煉賽事第二週</title>
   </head>
   <body>
-    <header class="header">
+    <div id="app">
+      <header class="header">
+        <div class="container">
+          <div class="logo"><a href="./">HaveFun</a></div>
+          <div class="search"><i class="i ion ion-md-search"></i>
+            <input type="text" placeholder="請輸入景點名稱" v-model="filterText" @keyup.enter="filterKeyWord"/>
+          </div>
+        </div>
+      </header>
       <div class="container">
-        <div class="logo"><a href="./">HaveFun</a></div>
-        <div class="search"><i class="i ion ion-md-search"></i>
-          <input type="text" placeholder="請輸入景點名稱"/>
-        </div>
+        <aside class="side">
+          <div class="side-location">
+            <h2 class="subtitle">地區</h2>
+            <div class="select-style">
+              <select name="" v-model="zoneText" @change="filterMix">
+                <option value="">選擇地區</option>
+                <option :value="item" v-for="item in zone">{{item}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="side-categories">
+            <h2 class="subtitle">進階篩選</h2>
+            <div class="input-group">
+              <div class="checkbox-style" :class="{'active' : free}">
+                <input v-model="free" type="checkbox" value="entertainment" id="free" @change="filterMix"/>
+                <label for="free">免費參觀</label>
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="checkbox-style" :class="{'active' : open}">
+                <input v-model="open" type="checkbox" value="food" id="open" @change="filterMix"/>
+                <label for="open">全天候開放</label>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <article class="content">
+          <div class="content-top">
+            <p class="p">Showing <span>{{filter.length}}</span> resulits By ...</p>
+            <div class="btn-group">
+              <div class="btn btn-close" v-if="zoneText" @click="zoneText = ''">{{zoneText}}</div>
+              <div class="btn btn-close" v-if="free" @click="free = false">免費參觀</div>
+              <div class="btn btn-close" v-if="open" @click="open = false">全天候開放</div>
+            </div>
+          </div>
+          <ul class="contents">
+            <li class="content-item" v-for="item in filter"><a href="./content.html">
+                <div class="content-img imgbox">
+                  <div class="imgbox-inner"><img class="img" :src="item.Picture1" alt="img"/></div>
+                </div>
+                <div class="content-info">
+                  <h2 class="subtitle">{{item.Name}}</h2>
+                  <p class="content-des">{{item.Description}}</p>
+                  <div class="content-ticket">
+                    <h3>門票說明</h3>
+                    <div class="content-tag" v-if="item.Ticketinfo">{{item.Ticketinfo}}</div>
+                    <div class="content-tag" v-else="v-else">無</div>
+                  </div>
+                  <div class="content-addr"><i class="ion ion-md-locate"></i>
+                    <p>{{item.Add}}</p>
+                  </div>
+                  <div class="content-open"><i class="ion ion-md-calendar"></i>
+                    <p>{{item.Opentime}}</p>
+                  </div>
+                  <div class="content-webside"><a v-if="item.Website" :href="item.Website" target="_blank"><i class="ion ion-ios-link"></i></a></div>
+                </div></a></li>
+          </ul>
+          <div class="content-paging">
+            <div class="page-item page-prev"><i class="ion ion-md-arrow-dropleft"></i></div>
+            <div class="page-item active" data-item="1">1</div>
+            <div class="page-item" data-item="2">2</div>
+            <div class="page-item" data-item="3">3</div>
+            <div class="page-item" data-item="4">4</div>
+            <div class="page-item" data-item="5">5</div>
+            <div class="page-item page-next"><i class="ion ion-md-arrow-dropright"></i></div>
+          </div>
+        </article>
       </div>
-    </header>
-    <div class="container">
-      <aside class="side">
-        <div class="side-location">
-          <h2 class="subtitle">Location</h2>
-          <div class="select-style">
-            <select name="">
-              <option value="Taiwan">Taiwan</option>
-            </select>
-          </div>
-        </div>
-        <div class="side-date">
-          <h2 class="subtitle">Date</h2>
-          <div class="input-group">
-            <label for="date-from">from</label>
-            <input type="date" id="date-from"/>
-          </div>
-          <div class="input-group">
-            <label for="date-top">to</label>
-            <input type="date" id="date-top"/>
-          </div>
-        </div>
-        <div class="side-categories">
-          <h2 class="subtitle">Categories</h2>
-          <div class="input-group">
-            <div class="checkbox-style">
-              <input class="checkbox" type="checkbox" value="all" id="all"/>
-              <label for="all">All</label>
-            </div>
-          </div>
-          <div class="input-group">
-            <div class="checkbox-style">
-              <input type="checkbox" value="entertainment" id="entertainment"/>
-              <label for="entertainment">Entertainment</label>
-            </div>
-          </div>
-          <div class="input-group">
-            <div class="checkbox-style">
-              <input type="checkbox" value="food" id="food"/>
-              <label for="food">Food</label>
-            </div>
-          </div>
-          <div class="input-group">
-            <div class="checkbox-style">
-              <input type="checkbox" value="learning" id="learning"/>
-              <label for="learning">Learning</label>
-            </div>
-          </div>
-          <div class="input-group">
-            <div class="checkbox-style">
-              <input type="checkbox" value="outdoors" id="outdoors"/>
-              <label for="outdoors">Outdoors</label>
-            </div>
-          </div>
-        </div>
-      </aside>
-      <article class="content">
-        <div class="content-top">
-          <p class="p">Showing <span>15</span> resulits By ...</p>
-          <div class="btn-group">
-            <div class="btn btn-close">Kaohsiung</div>
-            <div class="btn btn-close">Entertainment</div>
-          </div>
-        </div>
-        <ul class="contents">
-          <li class="content-item"><a href="./content.html">
-              <div class="content-img imgbox">
-                <div class="imgbox-inner"><img class="img" src="https://images.pexels.com/photos/257360/pexels-photo-257360.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=750&amp;w=1260" alt="img"/></div>
-              </div>
-              <div class="content-info">
-                <h2 class="subtitle">高雄願景館</h2>
-                <p class="content-des">高雄願景館的前身是日治時期興建的高雄市舊火車站，西式遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。</p>
-                <div class="content-ticket">
-                  <h3>門票說明</h3>
-                  <div class="content-tag">免費參觀</div>
-                </div>
-                <div class="content-addr"><i class="ion ion-md-locate"></i>
-                  <p>高雄市高雄市岡山區本工一路25號(Add)</p>
-                </div>
-                <div class="content-open"><i class="ion ion-md-calendar"></i>
-                  <p>每日08:00-17:00</p>
-                </div>
-                <div class="content-webside"><a href="/"><i class="ion ion-ios-link"></i></a></div>
-              </div></a></li>
-          <li class="content-item"><a href="./content.html">
-              <div class="content-img imgbox">
-                <div class="imgbox-inner"><img class="img" src="https://images.pexels.com/photos/167446/pexels-photo-167446.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=650&amp;w=940" alt="img"/></div>
-              </div>
-              <div class="content-info">
-                <h2 class="subtitle">高雄願景館</h2>
-                <p class="content-des">高雄願景館的前身是日治時期興建的高雄市舊火車站，西式遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。</p>
-                <div class="content-ticket">
-                  <h3>門票說明</h3>
-                  <div class="content-tag">免費參觀</div>
-                </div>
-                <div class="content-addr"><i class="ion ion-md-locate"></i>
-                  <p>高雄市高雄市岡山區本工一路25號(Add)</p>
-                </div>
-                <div class="content-open"><i class="ion ion-md-calendar"></i>
-                  <p>每日08:00-17:00</p>
-                </div>
-                <div class="content-webside"><a href="/"><i class="ion ion-ios-link"></i></a></div>
-              </div></a></li>
-          <li class="content-item"><a href="./content.html">
-              <div class="content-img imgbox">
-                <div class="imgbox-inner"><img class="img" src="https://images.pexels.com/photos/33545/sunrise-phu-quoc-island-ocean.jpg?auto=compress&amp;cs=tinysrgb&amp;h=350" alt="img"/></div>
-              </div>
-              <div class="content-info">
-                <h2 class="subtitle">高雄願景館</h2>
-                <p class="content-des">高雄願景館的前身是日治時期興建的高雄市舊火車站，西式遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。</p>
-                <div class="content-ticket">
-                  <h3>門票說明</h3>
-                  <div class="content-tag">免費參觀</div>
-                </div>
-                <div class="content-addr"><i class="ion ion-md-locate"></i>
-                  <p>高雄市高雄市岡山區本工一路25號(Add)</p>
-                </div>
-                <div class="content-open"><i class="ion ion-md-calendar"></i>
-                  <p>每日08:00-17:00</p>
-                </div>
-                <div class="content-webside"><a href="/"><i class="ion ion-ios-link"></i></a></div>
-              </div></a></li>
-        </ul>
-        <div class="content-paging">
-          <div class="page-item page-prev"><i class="ion ion-md-arrow-dropleft"></i></div>
-          <div class="page-item active" data-item="1">1</div>
-          <div class="page-item" data-item="2">2</div>
-          <div class="page-item" data-item="3">3</div>
-          <div class="page-item" data-item="4">4</div>
-          <div class="page-item" data-item="5">5</div>
-          <div class="page-item page-next"><i class="ion ion-md-arrow-dropright"></i></div>
-        </div>
-      </article>
+      <footer class="footer">
+        <p class="footer-text">Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊網API應用 | Front End Development by HSI-MAO CHEN</p><a class="footer-link" href="https://github.com/hsimao/" target="_blank"><i class="icon ion-logo-github"></i></a><a class="footer-link" href="https://codepen.io/hsimao" target="_blank"><i class="icon ion-logo-codepen"></i></a>
+      </footer>
     </div>
-    <footer class="footer">
-      <p class="footer-text">Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊網API應用 | Front End Development by HSI-MAO CHEN</p><a class="footer-link" href="https://github.com/hsimao/" target="_blank"><i class="icon ion-logo-github"></i></a><a class="footer-link" href="https://codepen.io/hsimao" target="_blank"><i class="icon ion-logo-codepen"></i></a>
-    </footer>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
     <script src="./js/js.js"></script>
   </body>
 </html>
