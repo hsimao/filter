@@ -400,7 +400,7 @@ i
                     border-radius: 50%
                     width: 0%
                     height: 0%
-                    transition: all .3s
+                    transition: all .6s
                 &:after
                     content: "\f2bc"
                     font-family: "Ionicons"
@@ -453,18 +453,21 @@ i
         content: ""
         position: absolute
         transform: translateY(-50%)
+        width: 15px
+        height: 15px
+
     &:before
         content: "\00d7"
         top: 48%
-        right: 17px
+        right: 16px
+        line-height: 15px
         font-family: "Ionicons"
         font-style: normal
         font-size: 16px
         font-weight: 300
+        text-align: center
     &:after
         top: 50%
-        height: 14px
-        width: 14px
         right: 15px
         border: solid 1px $color-primary-light
         border-radius: 50%
