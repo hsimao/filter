@@ -565,16 +565,12 @@ i
             position: absolute
             right: 0
             bottom: 0
-            width: 35px
+            width: 32px
             height: 24px
-            padding-left: 5px
+            padding-left: 0px
             color: $color-black
             background-color: $color-white
             cursor: pointer
-    &-des:hover,&-des.active
-        height: auto
-        &:before
-            display: none
 
     &-ticket
         display: flex
@@ -606,14 +602,6 @@ i
             overflow: hidden
             white-space: nowrap
             text-overflow: ellipsis
-        &:hover
-            background-color: $color-white
-            border: solid 1px $color-gray
-            i
-                margin-left: 0
-            p
-                overflow: initial
-                white-space: initial
 
     &-addr
         width: 65%
@@ -638,18 +626,46 @@ i
         margin-top: 24px
         max-width: 280px
         box-shadow: 0 2px 6px 0 rgba(black,0.2)
+        cursor: pointer
         +rwd(sm)
             float: none
             margin: 24px auto 0 auto
         .page-item
+            position: relative
             +flexCenter
             width: 40px
             height: 40px
             background-color: $color-white
             border: solid 1px $color-gray-light3
             color: $color-primary-light
+            &:before,&:after
+                content: ''
+                +abCenter
+            &:before
+                width: 1%
+                height: 1%
+                transition: all .6s
+                border-radius: 50%
+                background-color: $color-primary-light
             i
                 color: $color-primary-light
+            &:hover
+                &:before
+                    width: 200%
+                    height: 200%
+                    opacity: 0
+            &:hover:active
+                &:before
+                    width: 100%
+                    height: 100%
+                    opacity: 1
+                    border-radius: 0
+                    transition: all .3s
+                &:after
+                    content: attr(date-item)
+                    color: $color-white
+                    transition: all .3s
+
         .page-item.active
             background-color: $color-primary-light
             color: $color-white
@@ -690,11 +706,7 @@ i
         padding-right: 20px
         +rwd(pad)
             padding-right: 13px
-        &:hover
-            background-color: transparent
-            border: none
-            i
-                margin-left: -7px
+
     .content-addr
         +rwd(sm)
             width: 100%
