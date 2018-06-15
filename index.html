@@ -24,7 +24,7 @@
           <div class="side-location">
             <h2 class="subtitle">地區</h2>
             <div class="select-style">
-              <select name="" v-model="zoneText" @change="filterMix">
+              <select name="" v-model="zoneText" @change="filterZone">
                 <option value="">選擇地區</option>
                 <option :value="item" v-for="item in zone">{{item}}</option>
               </select>
@@ -34,13 +34,13 @@
             <h2 class="subtitle">進階篩選</h2>
             <div class="input-group">
               <div class="checkbox-style" :class="{'active' : free}">
-                <input v-model="free" type="checkbox" value="entertainment" id="free" @change="filterMix"/>
+                <input v-model="free" type="checkbox" value="entertainment" id="free" @change="filterType"/>
                 <label for="free">免費參觀</label>
               </div>
             </div>
             <div class="input-group">
               <div class="checkbox-style" :class="{'active' : open}">
-                <input v-model="open" type="checkbox" value="food" id="open" @change="filterMix"/>
+                <input v-model="open" type="checkbox" value="food" id="open" @change="filterType"/>
                 <label for="open">全天候開放</label>
               </div>
             </div>
@@ -48,11 +48,13 @@
         </aside>
         <article class="content">
           <div class="content-top">
+            <p class="p error" v-if="error">{{errorText}}</p>
+            <p class="p error" v-if="isNothing">查無資料</p>
             <p class="p">Showing <span>{{filter.length}}</span> resulits By ...</p>
             <div class="btn-group">
-              <div class="btn btn-close" v-if="zoneText" @click="zoneText = ''">{{zoneText}}</div>
-              <div class="btn btn-close" v-if="free" @click="free = false">免費參觀</div>
-              <div class="btn btn-close" v-if="open" @click="open = false">全天候開放</div>
+              <div class="btn btn-close" v-if="zoneText" @click="cancelZone">{{zoneText}}</div>
+              <div class="btn btn-close" v-if="free" @click="cancelFree">免費參觀</div>
+              <div class="btn btn-close" v-if="open" @click="cancelOpen">全天候開放</div>
             </div>
           </div>
           <ul class="contents">

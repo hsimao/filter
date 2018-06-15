@@ -85,6 +85,14 @@ i {
   .container:after {
     clear: both; }
 
+p.p.error {
+  background-color: #ebebeb;
+  color: #7828B4;
+  border-bottom: 3px solid #7828B4;
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding: 6px 12px; }
+
 .header {
   height: 90px;
   background-color: #7828B4; }

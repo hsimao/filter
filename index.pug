@@ -25,7 +25,7 @@ html(lang="zh-TW")
                     .side-location
                         h2.subtitle 地區
                         .select-style
-                            select(name="" v-model="zoneText" @change="filterMix")
+                            select(name="" v-model="zoneText" @change="filterZone")
                                 option(value="") 選擇地區
                                 option(:value="item" v-for="item in zone") {{item}}
 
@@ -33,21 +33,23 @@ html(lang="zh-TW")
                         h2.subtitle 進階篩選
                         .input-group
                             .checkbox-style(:class="{'active' : free}")
-                                input(v-model="free" type="checkbox" value="entertainment" id="free" @change="filterMix")
+                                input(v-model="free" type="checkbox" value="entertainment" id="free" @change="filterType")
                                 label(for="free") 免費參觀
                         .input-group
                             .checkbox-style(:class="{'active' : open}")
-                                input(v-model="open" type="checkbox" value="food" id="open" @change="filterMix")
+                                input(v-model="open" type="checkbox" value="food" id="open" @change="filterType")
                                 label(for="open") 全天候開放
 
                 //- 內容區塊
                 article.content
                     .content-top
+                        p.p.error(v-if="error") {{errorText}}
+                        p.p.error(v-if="isNothing") 查無資料
                         p.p Showing <span>{{filter.length}}</span> resulits By ...
                         .btn-group
-                            .btn.btn-close(v-if="zoneText" @click="zoneText = ''") {{zoneText}}
-                            .btn.btn-close(v-if="free" @click="free = false") 免費參觀
-                            .btn.btn-close(v-if="open" @click="open = false") 全天候開放
+                            .btn.btn-close(v-if="zoneText" @click="cancelZone") {{zoneText}}
+                            .btn.btn-close(v-if="free" @click="cancelFree") 免費參觀
+                            .btn.btn-close(v-if="open" @click="cancelOpen") 全天候開放
                     ul.contents
                         li.content-item(v-for="item in filter")
                             a(href="./content.html")
