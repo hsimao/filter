@@ -10,6 +10,11 @@ html(lang="zh-TW")
         title Filter 高雄旅遊景點 - 前端修煉賽事第二週
     body
         #app
+            .loading(v-if="isLoading")
+                .looping-rhombuses-spinner
+                    .rhombus
+                    .rhombus
+                    .rhombus
             //- header
             header.header
                 .container

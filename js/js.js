@@ -1,6 +1,3 @@
-
-
-
 new Vue({
     el: '#app',
     data: {
@@ -18,11 +15,13 @@ new Vue({
         pageIndex: 0,
         pageDisplay: 4,
         toolLocation: false,
-        toolType: false
+        toolType: false,
+        isLoading: false
 
     },
     methods: {
         getDate(newUrl){
+            this.toggleLoading()
             const _this = this
             let url = (newUrl) ? newUrl : this.url
             axios.get(`${url}`)
@@ -30,6 +29,7 @@ new Vue({
                 _this.datas = response.data.result.records
                 _this.filterData = response.data.result.records
                 _this.zone = _this.makeZoneSelect
+                _this.toggleLoading()
             })
             .catch(function (error) {
                 console.log(error);
@@ -133,6 +133,12 @@ new Vue({
             if (page.type === 'prev') this.pageIndex--
             if (page.type === 'next') this.pageIndex++
         },
+
+        // 載入動畫切換
+        toggleLoading(){
+            console.log("切換")
+            this.isLoading = !this.isLoading
+        }
 
     },
     computed: {
