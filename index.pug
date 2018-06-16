@@ -46,8 +46,6 @@ html(lang="zh-TW")
                         p.p.error(v-if="error") {{errorText}}
                         p.p.error(v-if="isNothing") 查無資料
                         p.p Showing <span>{{filterData.length}}</span> resulits By ...
-                        p.p {{pageCount}}
-                        p.p 總頁數：{{pageTotal}}
                         .btn-group
                             .btn.btn-close(v-if="zoneText" @click="cancelZone") {{zoneText}}
                             .btn.btn-close(v-if="free" @click="cancelFree") 免費參觀
