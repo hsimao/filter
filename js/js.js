@@ -3,6 +3,8 @@ new Vue({
     data: {
         datas: [],
         filterData: [],
+        innerData: [],
+        innerPage: false,
         url: 'https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97&limit=300',
         filterText: '',
         zone: [],
@@ -138,6 +140,12 @@ new Vue({
         toggleLoading(){
             console.log("切換")
             this.isLoading = !this.isLoading
+        },
+
+        // 內頁轉換
+        toggleInnerPage(item){
+            (item) ?  this.innerData = item : this.innerData = []
+            this.innerPage = !this.innerPage
         }
 
     },

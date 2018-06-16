@@ -288,6 +288,10 @@ p.p.error
         width: 100%
 
 .content.content-inner-page
+    width: auto
+    max-width: 900px
+    margin: 0 auto
+    float: none
     +rwd(pad)
         width: 100%
         padding: 24px 40px
@@ -747,10 +751,11 @@ p.p.error
 
 // == $breadcrumb ==
 .breadcrumb
-    background-color: $color-gray-light2
+    position: relative
     display: flex
     padding: 0 16px
     height: 48px
+    background-color: $color-gray-light2
     line-height: 48px
     +rwd(pad)
         margin-left: -20px
@@ -769,11 +774,36 @@ p.p.error
             width: 10px
             height: 100%
             text-align: center
+    &-back
+        position: absolute
+        right: 0px
+        padding: 0 12px
+        color: $color-white
+        font-weight: 300
+        cursor: pointer
+        background-color: $color-primary-light
+        transition: all .3s
+        &:hover
+            background-color: darken($color-primary-light,10)
 // == $ End ==
 
 
-// == $loading ==
+// == $vue animation ==
+.changePage
+    &-enter-active
+        animation: change .8s
+    &-leave-active
+        animation: change .8s reverse
 
+@keyframes change
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+// == $vue animation End ==
+
+
+// == $loading ==
 .loading
     position: absolute
     width: 100%
@@ -815,6 +845,4 @@ p.p.error
         transform: translateX(-233%) rotate(45deg) scale(1)
     100%
         transform: translateX(-466%) rotate(45deg) scale(0)
-
-
 // == $loading End ==

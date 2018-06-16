@@ -238,10 +238,15 @@ p.p.error {
     .content {
       width: 100%; } }
 
-@media (max-width: 768px) {
-  .content.content-inner-page {
-    width: 100%;
-    padding: 24px 40px; } }
+.content.content-inner-page {
+  width: auto;
+  max-width: 900px;
+  margin: 0 auto;
+  float: none; }
+  @media (max-width: 768px) {
+    .content.content-inner-page {
+      width: 100%;
+      padding: 24px 40px; } }
 
 .side {
   background-color: #ebebeb; }
@@ -695,10 +700,11 @@ p.p.error {
       font-size: 22px; }
 
 .breadcrumb {
-  background-color: #ebebeb;
+  position: relative;
   display: flex;
   padding: 0 16px;
   height: 48px;
+  background-color: #ebebeb;
   line-height: 48px; }
   @media (max-width: 768px) {
     .breadcrumb {
@@ -717,6 +723,29 @@ p.p.error {
     width: 10px;
     height: 100%;
     text-align: center; }
+  .breadcrumb-back {
+    position: absolute;
+    right: 0px;
+    padding: 0 12px;
+    color: #fff;
+    font-weight: 300;
+    cursor: pointer;
+    background-color: #9013FE;
+    transition: all .3s; }
+    .breadcrumb-back:hover {
+      background-color: #7601dd; }
+
+.changePage-enter-active {
+  animation: change .8s; }
+
+.changePage-leave-active {
+  animation: change .8s reverse; }
+
+@keyframes change {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 
 .loading {
   position: absolute;

@@ -21,13 +21,13 @@
       <header class="header">
         <div class="container">
           <div class="logo"><a href="./">HaveFun</a></div>
-          <div class="search"><i class="i ion ion-md-search"></i>
+          <div class="search" v-if="!innerPage"><i class="i ion ion-md-search"></i>
             <input type="text" placeholder="請輸入景點名稱" v-model="filterText" @keyup.enter="filterKeyWord"/>
           </div>
         </div>
       </header>
       <div class="container">
-        <aside class="side">
+        <aside class="side" v-if="!innerPage">
           <div class="side-location" :class="{'active' : toolLocation}" @click="toolLocation = !toolLocation">
             <h2 class="subtitle">地區</h2>
             <div class="select-style">
@@ -53,7 +53,7 @@
             </div>
           </div>
         </aside>
-        <article class="content">
+        <article class="content" v-if="!innerPage">
           <div class="content-top">
             <p class="p error" v-if="error">{{errorText}}</p>
             <p class="p error" v-if="isNothing">查無資料</p>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <ul class="contents">
-            <li class="content-item" v-for="item in slicePageData"><a href="./content.html">
+            <li class="content-item" v-for="item in slicePageData"><a href="#" @click.prevent="toggleInnerPage(item)">
                 <div class="content-img imgbox">
                   <div class="imgbox-inner"><img class="img" :src="item.Picture1" alt="img"/></div>
                 </div>
@@ -86,7 +86,7 @@
                   <div class="content-webside"><a v-if="item.Website" :href="item.Website" target="_blank"><i class="ion ion-ios-link"></i></a></div>
                 </div></a></li>
           </ul>
-          <div class="content-paging">
+          <div class="content-paging" v-if="!innerPage">
             <div class="page-text">
               <p class="p">共{{pageTotal}}頁 | 目前第{{pageIndex+1}}頁( {{pageCount}}筆1頁)</p>
             </div>
@@ -97,9 +97,39 @@
             </div>
           </div>
         </article>
+        <transition name="changePage">
+          <article class="content content-inner-page" v-show="innerPage">
+            <div class="breadcrumb"><a class="breadcrumb-item breadcrumb-item-primary" href="./">首頁</a>
+              <div class="breadcrumb-item">{{innerData.Name}}</div>
+              <div class="breadcrumb-back" @click="toggleInnerPage">回上一頁</div>
+            </div>
+            <ul class="content-only">
+              <li class="content-item">
+                <div class="content-img imgbox">
+                  <div class="imgbox-inner"><img class="img" :src="innerData.Picture1" alt="img"/></div>
+                </div>
+                <div class="content-info">
+                  <h2 class="title">{{innerData.Name}}</h2>
+                  <div class="content-ticket">
+                    <h3>門票說明</h3>
+                    <div class="content-tag" v-if="innerData.Ticketinfo">{{innerData.Ticketinfo}}</div>
+                  </div>
+                  <div class="content-addr"><i class="ion ion-md-locate"></i>
+                    <p>{{innerData.Add}}</p>
+                  </div>
+                  <div class="content-open"><i class="ion ion-md-calendar"></i>
+                    <p>{{innerData.Opentime}}</p>
+                  </div>
+                  <div class="content-webside"><a v-if="innerData.Website" :href="innerData.Website" target="_blank"><i class="ion ion-ios-link"></i></a></div>
+                  <p class="content-des">{{innerData.Description}}</p>
+                </div>
+              </li>
+            </ul>
+          </article>
+        </transition>
       </div>
       <footer class="footer">
-        <p class="footer-text">Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊網API應用 | Front End Development by HSI-MAO CHEN</p><a class="footer-link" href="https://github.com/hsimao/" target="_blank"><i class="icon ion-logo-github"></i></a><a class="footer-link" href="https://codepen.io/hsimao" target="_blank"><i class="icon ion-logo-codepen"></i></a>
+        <p class="footer-text">Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊景點API應用 | Front End Development by HSI-MAO CHEN</p><a class="footer-link" href="https://github.com/hsimao/" target="_blank"><i class="icon ion-logo-github"></i></a><a class="footer-link" href="https://codepen.io/hsimao" target="_blank"><i class="icon ion-logo-codepen"></i></a>
       </footer>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

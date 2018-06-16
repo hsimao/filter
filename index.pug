@@ -20,13 +20,13 @@ html(lang="zh-TW")
                 .container
                     .logo
                         a(href="./") HaveFun
-                    .search
+                    .search(v-if="!innerPage")
                         i.i.ion.ion-md-search
                         input(type="text" placeholder="請輸入景點名稱" v-model="filterText" @keyup.enter="filterKeyWord")
 
             .container
                 //- 搜尋工具列
-                aside.side
+                aside.side(v-if="!innerPage")
                     .side-location(:class="{'active' : toolLocation}" @click="toolLocation = !toolLocation")
                         h2.subtitle 地區
                         .select-style
@@ -46,7 +46,7 @@ html(lang="zh-TW")
                                 label(for="open") 全天候開放
 
                 //- 內容區塊
-                article.content
+                article.content(v-if="!innerPage")
                     .content-top
                         p.p.error(v-if="error") {{errorText}}
                         p.p.error(v-if="isNothing") 查無資料
@@ -57,7 +57,7 @@ html(lang="zh-TW")
                             .btn.btn-close(v-if="open" @click="cancelOpen") 全天候開放
                     ul.contents
                         li.content-item(v-for="item in slicePageData")
-                            a(href="./content.html")
+                            a(href="#" @click.prevent="toggleInnerPage(item)")
                                 .content-img.imgbox
                                     .imgbox-inner
                                         img.img(:src="item.Picture1", alt="img")
@@ -78,7 +78,8 @@ html(lang="zh-TW")
                                         a(v-if="item.Website" :href="item.Website" target="_blank")
                                             i.ion.ion-ios-link
 
-                    .content-paging
+                    //- 分頁區塊
+                    .content-paging(v-if="!innerPage")
                         .page-text
                             p.p 共{{pageTotal}}頁 | 目前第{{pageIndex+1}}頁( {{pageCount}}筆1頁)
                         .page-btns
@@ -88,9 +89,40 @@ html(lang="zh-TW")
                             .page-item.page-next(v-if="pageBtn.next" @click="pageChange(pageBtn.next)")
                                 i.ion.ion-md-arrow-dropright
 
+                //- 內頁區塊
+                transition(name="changePage")
+                    article.content.content-inner-page(v-show="innerPage")
+                        //- Breadcrumb
+                        .breadcrumb
+                            a.breadcrumb-item.breadcrumb-item-primary(href="./") 首頁
+                            .breadcrumb-item {{innerData.Name}}
+                            .breadcrumb-back(@click="toggleInnerPage") 回上一頁
+
+                        //- 景點詳細內容區塊
+                        ul.content-only
+                            li.content-item
+                                .content-img.imgbox
+                                    .imgbox-inner
+                                        img.img(:src="innerData.Picture1", alt="img")
+                                .content-info
+                                    h2.title {{innerData.Name}}
+                                    .content-ticket
+                                        h3 門票說明
+                                        .content-tag(v-if="innerData.Ticketinfo") {{innerData.Ticketinfo}}
+                                    .content-addr
+                                        i.ion.ion-md-locate
+                                        p {{innerData.Add}}
+                                    .content-open
+                                        i.ion.ion-md-calendar
+                                        p {{innerData.Opentime}}
+                                    .content-webside
+                                        a(v-if="innerData.Website" :href="innerData.Website" target="_blank")
+                                            i.ion.ion-ios-link
+                                    p.content-des {{innerData.Description}}
+
             //- footer
             footer.footer
-                p.footer-text Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊網API應用 | Front End Development by HSI-MAO CHEN
+                p.footer-text Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊景點API應用 | Front End Development by HSI-MAO CHEN
                 a.footer-link(href="https://github.com/hsimao/" target="_blank")
                     i.icon.ion-logo-github
                 a.footer-link(href="https://codepen.io/hsimao" target="_blank")
