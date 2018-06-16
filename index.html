@@ -51,8 +51,6 @@
             <p class="p error" v-if="error">{{errorText}}</p>
             <p class="p error" v-if="isNothing">查無資料</p>
             <p class="p">Showing <span>{{filterData.length}}</span> resulits By ...</p>
-            <p class="p">{{pageCount}}</p>
-            <p class="p">總頁數：{{pageTotal}}</p>
             <div class="btn-group">
               <div class="btn btn-close" v-if="zoneText" @click="cancelZone">{{zoneText}}</div>
               <div class="btn btn-close" v-if="free" @click="cancelFree">免費參觀</div>
