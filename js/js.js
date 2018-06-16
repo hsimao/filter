@@ -4,8 +4,8 @@
 new Vue({
     el: '#app',
     data: {
-        datas: {},
-        filter: {},
+        datas: [],
+        filterData: [],
         url: 'https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97&limit=300',
         filterText: '',
         zone: [],
@@ -13,7 +13,13 @@ new Vue({
         error: false,
         errorText: '',
         free: false,
-        open: false
+        open: false,
+        pageCount: 10,
+        pageIndex: 0,
+        pageDisplay: 4,
+        toolLocation: false,
+        toolType: false
+
     },
     methods: {
         getDate(newUrl){
@@ -22,7 +28,7 @@ new Vue({
             axios.get(`${url}`)
             .then(function (response) {
                 _this.datas = response.data.result.records
-                _this.filter = response.data.result.records
+                _this.filterData = response.data.result.records
                 _this.zone = _this.makeZoneSelect
             })
             .catch(function (error) {
@@ -42,7 +48,7 @@ new Vue({
             const _this = this
             axios.get(`${this.url}&q=${this.filterText}`)
             .then(function (response) {
-                _this.filter = response.data.result.records
+                _this.filterData = response.data.result.records
             })
             .catch(function (error) {
                 console.log(error);
@@ -58,11 +64,11 @@ new Vue({
         filterZone(){
             this.free = false
             this.open = false
-            if (this.zoneText === '') return this.filter = [...this.datas]
-            let filterData = this.datas.filter((item)=>{
+            if (this.zoneText === '') return this.filterData = [...this.datas]
+            let newData = this.datas.filter((item)=>{
                 return item.Zone === this.zoneText
             })
-            this.filter = [...filterData]
+            this.filterData = [...newData]
         },
 
         // 類別條件累加判斷
@@ -104,7 +110,7 @@ new Vue({
                 })
             }
 
-            this.filter = repeatFilter
+            this.filterData = repeatFilter
         },
 
         // 刪除Tag搜尋條件
@@ -120,6 +126,14 @@ new Vue({
             this.open = false
             this.filterType()
         },
+
+        // 分頁切換判斷
+        pageChange(page){
+            if (page.type === 'this') this.pageIndex = page.index-1
+            if (page.type === 'prev') this.pageIndex--
+            if (page.type === 'next') this.pageIndex++
+        },
+
     },
     computed: {
         // 過濾重複名稱，產生選項資料
@@ -133,11 +147,96 @@ new Vue({
         },
 
         isNothing() {
-            if (this.filter.length === 0) return true
+            if (this.filterData.length === 0) return true
+        },
+
+        // 分頁功能
+        // 頁數換算
+        pageTotal(){
+            const dataRow = this.filterData.length
+            if (dataRow % this.pageCount) {
+                return parseInt(dataRow / this.pageCount+1)
+            } else {
+                return parseInt(dataRow / this.pageCount)
+            }
+        },
+
+        // 分頁按鈕
+        pageBtn(){
+            let length = Math.round(this.filterData.length / this.pageCount)
+            let start = Math.round(this.pageIndex - this.pageDisplay / 2)
+            let end = Math.round(this.pageIndex + this.pageDisplay / 2)
+
+            if (start <= 1) {
+                start = 2
+                end = start + this.pageDisplay - 2
+                if (end >= length - 1) {
+                    end = length - 1
+                }
+            } else {
+
+                // 當前頁+2數大於等於總頁數時將end設定為總長度
+                // 避免按鈕超出種頁數
+                if (this.pageIndex+2 >= length) {
+                    end = length-1
+
+                } else if (this.pageIndex >= start) {
+                    // 如果當前頁數大於可顯示頁數 start修改為當前頁數-2
+                    start = start+2
+                }
+
+            }
+
+
+            // 第一頁按鈕
+            let btns = {
+                btn: [{index:1, value: 1, type: 'this'}]
+            }
+
+            // prev上一頁按鈕值
+            if (start !== 2) {
+                btns.prev = {
+                    index: this.pageIndex,
+                    value: '',
+                    type: 'prev'
+                }
+            }
+
+            // 產生按鈕值陣列 [1, 2, 3, 4]
+            for (let i=start; i<=end; i++) {
+                btns.btn.push({
+                    index: i,
+                    value: i,
+                    type: 'this'
+                })
+            }
+
+            // 最後一頁按鈕
+            btns.btn.push({
+                index: length,
+                value: length,
+                type: 'this'
+            })
+
+            // 下一頁按鈕
+            if (end !== length && end < length-1) {
+                btns.next = {
+                    index: this.pageIndex,
+                    value: '',
+                    type: 'next'
+                }
+            }
+            return btns
+        },
+
+        // 分頁資料
+        slicePageData(){
+            let start = this.pageIndex * this.pageCount
+            let end = (this.pageIndex + 1) * this.pageCount
+            return this.filterData.slice(start, end)
         }
     },
     created(){
-        console.log("創建成功")
         this.getDate()
     }
 })

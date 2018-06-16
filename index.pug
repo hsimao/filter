@@ -22,14 +22,14 @@ html(lang="zh-TW")
             .container
                 //- 搜尋工具列
                 aside.side
-                    .side-location
+                    .side-location(:class="{'active' : toolLocation}" @click="toolLocation = !toolLocation")
                         h2.subtitle 地區
                         .select-style
                             select(name="" v-model="zoneText" @change="filterZone")
                                 option(value="") 選擇地區
                                 option(:value="item" v-for="item in zone") {{item}}
 
-                    .side-categories
+                    .side-categories(:class="{'active' : toolType}" @click="toolType = !toolType")
                         h2.subtitle 進階篩選
                         .input-group
                             .checkbox-style(:class="{'active' : free}")
@@ -45,13 +45,15 @@ html(lang="zh-TW")
                     .content-top
                         p.p.error(v-if="error") {{errorText}}
                         p.p.error(v-if="isNothing") 查無資料
-                        p.p Showing <span>{{filter.length}}</span> resulits By ...
+                        p.p Showing <span>{{filterData.length}}</span> resulits By ...
+                        p.p {{pageCount}}
+                        p.p 總頁數：{{pageTotal}}
                         .btn-group
                             .btn.btn-close(v-if="zoneText" @click="cancelZone") {{zoneText}}
                             .btn.btn-close(v-if="free" @click="cancelFree") 免費參觀
                             .btn.btn-close(v-if="open" @click="cancelOpen") 全天候開放
                     ul.contents
-                        li.content-item(v-for="item in filter")
+                        li.content-item(v-for="item in slicePageData")
                             a(href="./content.html")
                                 .content-img.imgbox
                                     .imgbox-inner
@@ -74,15 +76,14 @@ html(lang="zh-TW")
                                             i.ion.ion-ios-link
 
                     .content-paging
-                        .page-item.page-prev
-                            i.ion.ion-md-arrow-dropleft
-                        .page-item.active(data-item="1") 1
-                        .page-item(data-item="2") 2
-                        .page-item(data-item="3") 3
-                        .page-item(data-item="4") 4
-                        .page-item(data-item="5") 5
-                        .page-item.page-next
-                            i.ion.ion-md-arrow-dropright
+                        .page-text
+                            p.p 共{{pageTotal}}頁 | 目前第{{pageIndex+1}}頁( {{pageCount}}筆1頁)
+                        .page-btns
+                            .page-item.page-prev(v-if="pageBtn.prev" @click="pageChange(pageBtn.prev)")
+                                i.ion.ion-md-arrow-dropleft
+                            .page-item(v-for="page in pageBtn.btn", @click="pageChange(page)", :class="{'active' : pageIndex == page.index-1}") {{page.value}} 
+                            .page-item.page-next(v-if="pageBtn.next" @click="pageChange(pageBtn.next)")
+                                i.ion.ion-md-arrow-dropright
 
             //- footer
             footer.footer

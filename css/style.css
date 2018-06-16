@@ -265,12 +265,7 @@ p.p.error {
           height: 64px;
           line-height: 64px;
           font-size: 30px;
-          transition: all .3s; }
-        .side-location:hover, .side-date:hover, .side-categories:hover {
-          background-color: #ebebeb;
-          height: auto; }
-          .side-location:hover:after, .side-date:hover:after, .side-categories:hover:after {
-            transform: rotate(-90deg); } }
+          transition: all .3s; } }
   .side-location {
     border-bottom: solid 1px #D7D7D7; }
     @media (max-width: 568px) {
@@ -368,6 +363,12 @@ p.p.error {
       line-height: 20px;
       white-space: nowrap;
       cursor: pointer; }
+
+.side-location.active, .side-categories.active {
+  background-color: #ebebeb;
+  height: auto; }
+  .side-location.active:after, .side-categories.active:after {
+    transform: rotate(-90deg); }
 
 .btn {
   display: inline-block;
@@ -569,24 +570,29 @@ p.p.error {
       .content-webside {
         width: 20%; } }
   .content-paging {
-    float: right;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
-    margin-top: 24px;
-    max-width: 280px;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
-    cursor: pointer; }
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px; }
     @media (max-width: 568px) {
       .content-paging {
-        float: none;
+        justify-content: center;
         margin: 24px auto 0 auto; } }
+    .content-paging .page-text {
+      padding-bottom: 10px; }
+    .content-paging .page-btns {
+      display: flex;
+      box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+      cursor: pointer; }
     .content-paging .page-item {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       background-color: #fff;
       border: solid 1px #f2f2f2;
       color: #9013FE; }

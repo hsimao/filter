@@ -316,11 +316,6 @@ p.p.error
                 line-height: 64px
                 font-size: 30px
                 transition: all .3s
-            &:hover
-                background-color: $color-gray-light2
-                height: auto
-                &:after
-                    transform: rotate(-90deg)
     &-location
         border-bottom: solid 1px $color-gray-light1
         +rwd(sm)
@@ -415,6 +410,14 @@ p.p.error
                 line-height: 20px
                 white-space: nowrap
                 cursor: pointer
+
+// 手機版切換
+.side-location.active,.side-categories.active
+    background-color: $color-gray-light2
+    height: auto
+    &:after
+        transform: rotate(-90deg)
+
 // == $side 側邊欄工具列 End ==
 
 
@@ -615,21 +618,28 @@ p.p.error
 
     // 分頁區
     &-paging
-        float: right
+        width: 100%
         display: flex
-        justify-content: flex-end
+        flex-flow: row wrap
+        justify-content: space-between
+        align-items: center
         margin-top: 24px
-        max-width: 280px
-        box-shadow: 0 2px 6px 0 rgba(black,0.2)
-        cursor: pointer
         +rwd(sm)
-            float: none
+            justify-content: center
             margin: 24px auto 0 auto
+        .page-text
+            padding-bottom: 10px
+
+        .page-btns
+            display: flex
+            // max-width: 280px
+            box-shadow: 0 2px 6px 0 rgba(black,0.2)
+            cursor: pointer
         .page-item
             position: relative
             +flexCenter
-            width: 40px
-            height: 40px
+            width: 45px
+            height: 45px
             background-color: $color-white
             border: solid 1px $color-gray-light3
             color: $color-primary-light
