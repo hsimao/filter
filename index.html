@@ -20,9 +20,11 @@
       </div>
       <header class="header">
         <div class="container">
-          <div class="logo"><a href="./">HaveFun</a></div>
+          <div class="logo"><a href="./">高雄旅遊景點</a></div>
           <div class="search" v-if="!innerPage"><i class="i ion ion-md-search"></i>
-            <input type="text" placeholder="請輸入景點名稱" v-model="filterText" @keyup.enter="filterKeyWord"/>
+            <input type="text" placeholder="請輸入景點名稱" v-model="filterText" @input="filterInput" @keyup.enter="filterKeyWord"/>
+            <div class="btn btn-close" v-if="inputEnter" @click.self="clearInput">{{filterText}}</div>
+            <div class="search-btn" v-if="inputBtn" @click.self="filterKeyWord"></div>
           </div>
         </div>
       </header>
@@ -57,7 +59,7 @@
           <div class="content-top">
             <p class="p error" v-if="error">{{errorText}}</p>
             <p class="p error" v-if="isNothing">查無資料</p>
-            <p class="p">Showing <span>{{filterData.length}}</span> resulits By ...</p>
+            <p class="p">共 <span>{{filterData.length}}</span> 筆搜尋結果 ...</p>
             <div class="btn-group">
               <div class="btn btn-close" v-if="zoneText" @click="cancelZone">{{zoneText}}</div>
               <div class="btn btn-close" v-if="free" @click="cancelFree">免費參觀</div>
@@ -132,6 +134,7 @@
         <p class="footer-text">Filter - The F2E 前端修練精神時光屋 [第二週賽事] | 高雄旅遊景點API應用 | Front End Development by HSI-MAO CHEN</p><a class="footer-link" href="https://github.com/hsimao/" target="_blank"><i class="icon ion-logo-github"></i></a><a class="footer-link" href="https://codepen.io/hsimao" target="_blank"><i class="icon ion-logo-codepen"></i></a>
       </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
     <script src="./js/js.js"></script>

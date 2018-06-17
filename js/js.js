@@ -18,8 +18,9 @@ new Vue({
         pageDisplay: 4,
         toolLocation: false,
         toolType: false,
-        isLoading: false
-
+        isLoading: false,
+        inputBtn: false,
+        inputEnter: false
     },
     methods: {
         getDate(newUrl){
@@ -39,6 +40,10 @@ new Vue({
         },
 
         filterKeyWord(){
+            this.inputEnter = true
+            this.inputBtn = false
+            this.clearFilter()
+
             if (!this.filterText.trim()) {
                 this.error = true
                 this.errorText = '尚未輸入文字'
@@ -46,7 +51,6 @@ new Vue({
                 return
             }
 
-            this.clearFilter()
             const _this = this
             axios.get(`${this.url}&q=${this.filterText}`)
             .then(function (response) {
@@ -55,14 +59,20 @@ new Vue({
             .catch(function (error) {
                 console.log(error);
             });
-            this.filterText = ''
         },
         clearFilter(){
             this.free = false
             this.open = false
             this.zoneText = ''
         },
-
+        filterInput(){
+            this.inputBtn = true
+        },
+        clearInput(){
+            this.filterText = ''
+            this.inputEnter = false
+            this.filterData = this.datas
+        },
         filterZone(){
             this.free = false
             this.open = false
@@ -138,7 +148,6 @@ new Vue({
 
         // 載入動畫切換
         toggleLoading(){
-            console.log("切換")
             this.isLoading = !this.isLoading
         },
 
@@ -146,6 +155,16 @@ new Vue({
         toggleInnerPage(item){
             (item) ?  this.innerData = item : this.innerData = []
             this.innerPage = !this.innerPage
+            this.goTop()
+        },
+
+        // 回頂部轉場效果
+        goTop(){
+            let scroll = document.documentElement ? document.documentElement : document.body
+            TweenMax.to(scroll, 0.5, {
+                scrollTop: 10,
+                ease: Power4.easeOut
+            })
         }
 
     },

@@ -181,6 +181,7 @@ p.p.error
             text-align: center
             background-color: $color-primary
     .search
+        position: relative
         width: 100%
         vertical-align: middle
         cursor: pointer
@@ -220,48 +221,58 @@ p.p.error
                 color: rgba($color-black, 0.5)
                 caret-color: $color-black
                 border-bottom: 1px solid $color-black
-
-.header.header-inner-page
-    +rwd(sm)
-        height: 70px
-        height: auto
-        background-color: $color-primary
-        .container
-            padding: 0 20px
-            flex-flow: row nowrap
-            display: flex
-            justify-content: space-between
-        .logo
-            font-size: 24px
-            width: initial
-            text-align: left
-        .search
-            flex: 1 1 auto
-            width: initial
-            text-align: right
-            background-color: transparent
-            position: relative
-            box-shadow: none
-            i
-                color: $color-white
-                position: absolute
-                right: 0
-                top: 50%
-                transform: translateY(-50%)
-            input
-                margin-left: 0
-                padding-left: 0
-                border-bottom: solid 1px $color-white
-                color: rgba($color-white, 0.5)
-                caret-color: $color-white
-                width: 0px
-                visibility: hidden
-            input::placeholder
-                color: rgba($color-white,0.5)
+        .search-btn
+            position: absolute
+            top: 2px
+            left: 250px
+            width: 45px
+            height: 30px
+            line-height: 30px
+            text-align: center
+            color: $color-white
+            border-radius: 4px
+            transition: all .3s
+            &:before
+                content: "\f376"
+                font-family: "Ionicons"
             &:hover
-                input
-                    width: 100%
-                    visibility: visible
+                background-color: $color-white
+                color: $color-primary
+            +rwd(pad)
+                left: 190px
+            +rwd(sm)
+                color: $color-primary
+                top: 7px
+                left: auto
+                right: 40px
+
+        .btn-close
+            display: inline-block
+            position: absolute
+            top: 0
+            left: 35px
+            min-width: 100px
+            height: 35px
+            line-height: 35px
+            padding: 0px 40px 0px 20px
+            border-radius: 2px
+            border: none
+            background-color: $color-primary
+            color: $color-white
+            letter-spacing: 1px
+            +rwd(sm)
+                top: 5px
+                left: 77px
+            &:before
+                top: 45%
+            &:after
+                border: solid 1px $color-white
+            &:hover
+                background-color: $color-white
+                color: $color-primary
+                &:after
+                    border: solid 1px $color-primary !important
+
 // == $header End ==
 
 
@@ -274,10 +285,6 @@ p.p.error
         width: 270px
     +rwd(sm)
         width: 100%
-
-.side.side-inner-page
-    +rwd(pad)
-        display: none
 
 .content
     float: left
@@ -409,6 +416,8 @@ p.p.error
                 top: 0
                 left: 0
                 opacity: 0
+                cursor: pointer
+                border: solid 1px blue
             label
                 margin-left: 22px
                 line-height: 20px
