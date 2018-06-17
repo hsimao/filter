@@ -74,6 +74,7 @@ new Vue({
             this.filterData = this.datas
         },
         filterZone(){
+            this.clearInput()
             this.free = false
             this.open = false
             if (this.zoneText === '') return this.filterData = [...this.datas]
@@ -85,6 +86,7 @@ new Vue({
 
         // 類別條件累加判斷
         filterType(){
+            this.clearInput()
             let source = [...this.datas]
             let freeFilter = []
             let openFilter = []
