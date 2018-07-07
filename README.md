@@ -4,8 +4,9 @@
 
 ### 練習技能
 1. data filter
-2. 挑戰還原設計稿樣式95%以上
-3. 分頁功能
+2. 挑戰還原設計稿樣式95%以上,設計稿 https://hexschool.github.io/THE_F2E_Design/week2-filter/
+3. 分頁切換
+4. RWD
 
 ### 功能
 1. 高雄旅遊景點資訊搜尋
