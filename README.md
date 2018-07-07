@@ -2,6 +2,11 @@
 
 ### live demo https://hsimao.github.io/filter/
 
+### 練習技能
+1. data filter
+2. 挑戰還原設計稿樣式95%以上
+3. 分頁功能
+
 ### 功能
 1. 高雄旅遊景點資訊搜尋
 2. 關鍵字搜尋
